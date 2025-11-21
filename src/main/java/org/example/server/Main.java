@@ -1,6 +1,5 @@
 package org.example.server;
 
-import org.example.client.DefaultUdpDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ import java.net.InetAddress;
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) throws IOException, InterruptedException {
-        DefaultUdpServer server = new DefaultUdpServer("test-server",45369);
+        DefaultReplayServer server = new DefaultReplayServer("test-server",45369);
         server.start();
         SequenceNumberGenerator sequenceNumberGenerator = new SequenceNumberGenerator();
         InetAddress localhost = InetAddress.getByName("localhost");

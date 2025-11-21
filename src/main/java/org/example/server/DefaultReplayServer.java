@@ -10,15 +10,15 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 
-public class DefaultUdpServer implements UdpServer{
+public class DefaultReplayServer implements ReplayServer {
 
     private DatagramSocket socket;
     private String serverName;
     private int port;
-    private static final Logger logger = LoggerFactory.getLogger(DefaultUdpServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultReplayServer.class);
 
 
-    public DefaultUdpServer(String serverName, int port) throws SocketException {
+    public DefaultReplayServer(String serverName, int port) throws SocketException {
         this.serverName= serverName;
         this.port = port;
     }
@@ -39,5 +39,15 @@ public class DefaultUdpServer implements UdpServer{
     @Override
     public void send(DatagramPacket packet) throws IOException {
         socket.send(packet);
+    }
+
+    @Override
+    public void replay(Long startingSequenceNumber, Long endingSequenceNumber) throws Exception {
+
+    }
+
+    @Override
+    public void replay(Long SequenceNumber) throws Exception {
+
     }
 }
