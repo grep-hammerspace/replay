@@ -10,7 +10,7 @@ Stuff To Do With This Project
    * Determine how long we wait before requesting that packet over tcp(receiver side)
    * Determine how long we keep packets that have already been sent in memory before discarding them (sender side)
    * Define an api to that allows you to persist packet information for a list of received packets that are no longer needed exactly but .
-     we still want to to keep in case we want to replay them later. (Receiver-side) (The condition here is that there will no packets)
+     we still want to keep in case we want to replay them later. (Receiver-side) (The condition here is that there will no packets)
      missing when we persist this information)
 
 3) Make the api of the library nice and easy to use
