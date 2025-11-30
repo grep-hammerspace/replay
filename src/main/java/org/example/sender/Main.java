@@ -12,8 +12,8 @@ import java.net.InetAddress;
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) throws IOException, InterruptedException {
-        DefaultReplayServer server = new DefaultReplayServer("test-server",45369);
-        server.start();
+        DefaultReplaySender sender = new DefaultReplaySender("test-sender",45369);
+        sender.start();
         SequenceNumberGenerator sequenceNumberGenerator = new SequenceNumberGenerator();
         InetAddress localhost = InetAddress.getByName("localhost");
         int i = 0;
@@ -25,7 +25,7 @@ public class Main {
                     .withSequenceNumber(sequenceNumberGenerator.next())
                     .to(localhost,44444).build();
 //            logger.info("Sendin packet number {}", i);
-            server.send(packet);
+            sender.send(packet);
             i++;
         }
 

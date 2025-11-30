@@ -3,7 +3,7 @@ package org.example.sender;
 import java.net.DatagramPacket;
 import java.net.SocketException;
 
-public interface ReplayServer {
+public interface ReplaySender {
 
     void start() throws SocketException;
     void stop();

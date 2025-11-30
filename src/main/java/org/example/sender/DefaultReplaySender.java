@@ -10,15 +10,15 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 
 
-public class DefaultReplayServer implements ReplayServer {
+public class DefaultReplaySender implements ReplaySender {
 
     private DatagramSocket socket;
     private String serverName;
     private int port;
-    private static final Logger logger = LoggerFactory.getLogger(DefaultReplayServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultReplaySender.class);
 
 
-    public DefaultReplayServer(String serverName, int port) throws SocketException {
+    public DefaultReplaySender(String serverName, int port) throws SocketException {
         this.serverName= serverName;
         this.port = port;
     }

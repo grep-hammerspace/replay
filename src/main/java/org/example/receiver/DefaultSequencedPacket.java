@@ -1,5 +1,11 @@
 package org.example.receiver;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
 public class DefaultSequencedPacket implements SequencedPacket{
 
     private Long sequenceNumber;
