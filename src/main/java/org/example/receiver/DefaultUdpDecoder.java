@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.DatagramPacket;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 public class DefaultUdpDecoder implements PacketDecoder{
 
@@ -27,8 +28,8 @@ public class DefaultUdpDecoder implements PacketDecoder{
         //get actual payload by reading to end of buffer
         byte[] payload = new byte[length - BYTES_FOR_SEQUENCE_NUMBER];
         buffer.get(payload);
-//        String s = new String(payload, StandardCharsets.UTF_8);
-//        logger.info("Decoded string of payload is {}", s);
+        String s = new String(payload, StandardCharsets.UTF_8);
+        logger.info("{}", s);
 
         return new DefaultSequencedPacket(sequenceNumber, payload);
 

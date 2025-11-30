@@ -56,14 +56,12 @@ public class DefaultUdpPacketReceiver{
             socket.receive(rawPacket);
             SequencedPacket packet = decoder.decode(rawPacket);
             long sequenceNumberFromPacket = packet.sequenceNumber();
-
+            logger.info("Received packet with sequence number {}", sequenceNumberFromPacket);
             if (sequenceNumberFromPacket > lastSequenceNumber + 1l){
                 //We missed at least one packet
                 logger.info("Expected seqno {} but received seqno {}", lastSequenceNumber + 1L, packet.sequenceNumber());
                 logMissedPackets(this.lastSequenceNumber, packet.sequenceNumber());
-                return;
             }
-            logger.info("Received packet with sequence number {}", sequenceNumberFromPacket);
             lastSequenceNumber = sequenceNumberFromPacket;
         } catch (Exception e) {
             logger.info("Failed while attempting to decode {}", rawPacket);
@@ -73,6 +71,7 @@ public class DefaultUdpPacketReceiver{
 
     private void logMissedPackets(Long from, Long to){
         for (Long i = from + 1L; i < to; i++){
+            logger.info("Missed packet with sequence number {}", i);
             missedSequenceNumbers.add(i);
         }
     }

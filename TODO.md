@@ -6,14 +6,22 @@ Stuff To Do With This Project
    * Look into other ways to speed up packet send and receive
 
 2) implement a reliable replay mechanism 
-   * Find out ASAP when there is a packet missing (receiver side) <- What I am on currently
-   * Determine how long we wait before requesting that packet over tcp(receiver side)
-   * Determine how long we keep packets that have already been sent in memory before discarding them (sender side)
-   * Define an api to that allows you to persist packet information for a list of received packets that are no longer needed exactly but .
+   * ~~Find out ASAP when there is a packet missing (receiver side)~~ Never mind apparently theres a better way to do this with a window buffer.
+   * Determine how long we wait before requesting that packet over tcp(receiver side) <- What Im Doing Now, Current plan is to do that immediately
+   * Determine how long we keep packets that have already been sent in memory before discarding them (sender side) + how we store them without taking up hella memory.
+   * Define an api to that allows you to persist packet information for a list of received packets that are no longer needed exactly but
      we still want to keep in case we want to replay them later. (Receiver-side) (The condition here is that there will no packets)
      missing when we persist this information)
 
 3) Make the api of the library nice and easy to use
    * Make sure the library is well documented
    * Add examples of how to use the library for different use cases
+
+
+Notes for things i am working on
+Long2ObjectOpenHashMap - Stores millions of packets without boxing overhead.
+
+BitSet Sliding Window - Efficient way to track missing packets over the last WINDOW_SIZE sequence numbers.
+
+You only need a few hundred/thousand entries for retransmission detection.
 

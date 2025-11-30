@@ -19,14 +19,20 @@ public class Main {
         int i = 0;
         Long start = System.nanoTime();
         while (true){
-            String body = "udp packet body number " + i;
-            DatagramPacket packet = UdpPacketBuilder.builder()
-                    .withPayload(body.getBytes())
-                    .withSequenceNumber(sequenceNumberGenerator.next())
-                    .to(localhost,44444).build();
-//            logger.info("Sendin packet number {}", i);
-            sender.send(packet);
-            i++;
+            Long seqno = sequenceNumberGenerator.next();
+            logger.info("Sequence number: {}", seqno);
+            if (seqno % 3== 0) {
+                logger.info("Sequence number mod 3: {}", seqno %3);
+                String body = "Packet Body";
+                DatagramPacket packet = UdpPacketBuilder.builder()
+                        .withPayload(body.getBytes())
+                        .withSequenceNumber(seqno)
+                        .to(localhost, 44444).build();
+//                logger.info("Sendin packet number {}", i);
+                sender.send(packet);
+                i++;
+                Thread.sleep(3000);
+            }
         }
 
     }
