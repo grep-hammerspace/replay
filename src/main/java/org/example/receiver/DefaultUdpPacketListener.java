@@ -1,4 +1,4 @@
-package org.example.client;
+package org.example.receiver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.nio.charset.StandardCharsets;
 
 public class DefaultUdpPacketListener{
 

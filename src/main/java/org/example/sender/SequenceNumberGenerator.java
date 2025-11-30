@@ -1,4 +1,4 @@
-package org.example.server;
+package org.example.sender;
 
 import java.util.concurrent.atomic.AtomicLong;
 

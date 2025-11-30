@@ -1,4 +1,4 @@
-package org.example.server;
+package org.example.sender;
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
