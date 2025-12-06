@@ -25,7 +25,7 @@ public class DefaultUdpPacketReceiverSequencingTest {
         mockSocket = mock(DatagramSocket.class);
         mockDecoder = mock(PacketDecoder.class);
 
-        receiver = new DefaultUdpPacketReceiver(mockDecoder, 9999, InetAddress.getLoopbackAddress());
+        receiver = new DefaultUdpPacketReceiver(mockDecoder, 9999,5555, InetAddress.getLoopbackAddress());
 
         receiver.setSocket(mockSocket);
         receiver.setDecoder(mockDecoder);

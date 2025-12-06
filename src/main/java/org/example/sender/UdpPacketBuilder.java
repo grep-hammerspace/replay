@@ -1,6 +1,9 @@
 package org.example.sender;
 
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
@@ -8,6 +11,7 @@ import java.nio.ByteBuffer;
 /*
 A builder class that is used to create instances of DatagramPacket with a custom header sent in the byte[]
  */
+@Getter
 public class UdpPacketBuilder implements PacketBuilder{
 
     private Long sequenceNumber;

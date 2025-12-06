@@ -5,10 +5,7 @@ import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.*;
 import java.util.ArrayList;
 
 
@@ -18,7 +15,8 @@ public class DefaultUdpPacketReceiver{
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultUdpPacketReceiver.class);
     private DatagramSocket socket;
-    private int port;
+    private int udpPort;
+    private int tcpPort;
     private InetAddress address;
     private PacketDecoder decoder;
     private long lastSequenceNumber = 0L;
@@ -26,31 +24,33 @@ public class DefaultUdpPacketReceiver{
     private final int MAX_SIZE_PACKET_PAYLOAD = 1500;
 
 
-    public DefaultUdpPacketReceiver(PacketDecoder decoder, int port, InetAddress address) {
+    public DefaultUdpPacketReceiver(PacketDecoder decoder, int udpPort, int tcpPort, InetAddress address) {
         this.decoder = decoder;
-        this.port = port;
+        this.udpPort = udpPort;
         this.address = address;
+        this.tcpPort = tcpPort;
     }
 
     public void start() throws SocketException {
-        logger.info("Starting listener at {}:{}", this.address,this.port);
-        socket = new DatagramSocket(this.port, this.address);
+        logger.info("Starting udp listener at {}:{}", this.address,this.udpPort);
+        socket = new DatagramSocket(this.udpPort, this.address);
+        logger.info("Creating TCP connection to receive missed packets at {}:{}", this.address, this.tcpPort);
+        logger.info("Created TCP connection");
         int i =0;
         Long s = System.nanoTime();
-
-        while (i < 1000000){
+        while (i < 50){
             listenLoop();
             i++;
         }
-        Long e = System.nanoTime();
-        logger.info("ns: {}",e-s);
-        logger.info("Processsed {} messages/s",1000000/((e-s)/1000000000));
+        System.out.println(missedSequenceNumbers);
+//        Long e = System.nanoTime();
+//        logger.info("ns: {}",e-s);
+//        logger.info("Processsed {} messages/s",1000000/((e-s)/1000000000));
 
     }
 
     private void listenLoop() {
         byte[] buffer = new byte[MAX_SIZE_PACKET_PAYLOAD];
-        // TODO: Remaking a new packet each time might be inefficient. Consider reusing the same packet.
         DatagramPacket rawPacket = new DatagramPacket(buffer, buffer.length);
         try{
             socket.receive(rawPacket);
@@ -77,7 +77,7 @@ public class DefaultUdpPacketReceiver{
     }
 
     public void stop() {
-        logger.info("Stopping UDP listener at {}:{}", this.address,this.port);
+        logger.info("Stopping UDP listener at {}:{}", this.address,this.udpPort);
         socket.close();
     }
 

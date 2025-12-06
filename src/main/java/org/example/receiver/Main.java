@@ -8,7 +8,7 @@ public class Main {
         InetAddress localhost = InetAddress.getByName("localhost");
         PacketDecoder decoder = new DefaultUdpDecoder();
 
-        DefaultUdpPacketReceiver receiver = new DefaultUdpPacketReceiver(decoder, 44444, localhost);
+        DefaultUdpPacketReceiver receiver = new DefaultUdpPacketReceiver(decoder, 44444,55555, localhost);
         receiver.start();
 
     }
